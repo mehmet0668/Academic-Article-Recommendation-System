@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Giriş ve Kayıt Sayfası</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #808080;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            background-color: #ffffff;
+            width: 40%;
+            border: 1px solid #333;
+            padding: 30px;
+            border-radius: 10px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #bbbbbb;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #000000;
+            box-sizing: border-box;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #004444;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #00ff44;
+        }
+    </style>
+</head>
+<body>
+    <form id="login-form" action="/login" method="POST">
+        <h2>Giriş Yap</h2>
+        <p>Kullanıcı Adı:</p>
+        <input type="text" id="login-username" name="username">
+        <p>Şifre:</p>
+        <input type="password" id="login-password" name="password">
+        <button type="submit">Giriş Yap</button>
+    </form>
+    
+    <form id="kayit-form" action="/kayit" method="POST">
+        <h2>Kayıt Ol</h2>
+        <p>Kullanıcı Adı:</p>
+        <input type="text" id="kayit-username" name="username">
+        <p>Şifre:</p>
+        <input type="password" id="kayit-password" name="password">
+        <p>İlgi Alanları:</p>
+        <div class="ilgi-list">
+            {% for ilgi in ilgi_listesi %}
+            <div class="ilgi">
+                <input type="checkbox" id="ilgi-{{loop.index}}" name="ilgi_alanlari[]" value="{{ilgi['kelime']}}">
+                <span>{{ilgi['kelime']}}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit">Kayıt Ol</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Sayfası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333333;
+            padding: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            padding: 1rem;
+            background-color: #dddddd;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        
+        }
+        .card-body {
+            padding: 1rem;
+            background-color: #dddddd;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #dddddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: #ffffff;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="card-body">Kullanıcı</h2>
+    <p class="card-body">{{kullanici_data['username']}}</p>
+
+    <form action="/kullanici/filtre/{{kullanici_data['user_id']}}" method="POST" class="form-inline">
+        <input type="text" name="filtre_query" placeholder="Kelimeye Göre Ara">
+        <button type="submit" class="card-body">Ara</button>
+    </form>
+
+    <form action="/kullanici/ilgi/{{kullanici_data['user_id']}}" method="POST" class="form-inline">
+        <input type="text" name="ilgi_query" placeholder="İlgi Alanına Göre Ara">
+        <button type="submit" class="card-body">Ara</button>
+    </form>
+
+    <h2 class="card-body">FastText: Precision: {{fasttext_precision}}</h2>
+    {% for makale in fasttext_makale %}
+        <div class="card-body">
+            <h2>Makale</h2>
+            <p>ID: {{makale[0]["doc_id"]}}</p>
+            <p>{{" ".join(makale[0]["doc"][:20])}} ...</p>
+            <p>Öneri Oranı: {{makale[1]}}</p>
+            <p><a href="/makalesayfa/{{makale[0]['doc_id']}}" target="_blank" class="card-body">Oku</a></p>
+            <p><a href="/kullanici/{{kullanici_data['user_id']}}/makale/{{makale[0]['doc_id']}}" class="card-body">Makaleyi Beğendim</a></p>
+        </div>
+    {% endfor %}
+
+    <h2 class="card-body">sciBERT: Precision: {{bert_precision}}</h2>
+    {% for makale in bert_makale %}
+        <div class="card-body">
+            <h2>Makale</h2>
+            <p>ID: {{makale[0]["doc_id"]}}</p>
+            <p>{{" ".join(makale[0]["doc"][:20])}} ...</p>
+            <p>Öneri Oranı: {{makale[1]}}</p>
+            <p><a href="/makalesayfa/{{makale[0]['doc_id']}}" target="_blank" class="card-body">Oku</a></p>
+            <p><a href="/kullanici/{{kullanici_data['user_id']}}/makale/{{makale[0]['doc_id']}}" class="card-body">Makaleyi Beğendim</a></p>
+        </div>
+    {% endfor %}
+</body>
+</html>

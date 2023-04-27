@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makale</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #000000;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eeeeee;
+            color: #000000;
+        }
+
+        td {
+            background-color: #dddddd;
+            color: #000000;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #cccccc;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <h2>Makale</h2>
+    <table>
+        <tr>
+            <td>Makale ID</td>
+            <td>{{makale_data.get('doc_id')}}</td>
+        </tr>
+        <tr>
+            <td>Makale</td>
+            <td>{{' '.join(makale_data.get('doc'))}}</td>
+        </tr>
+        <tr>
+            <td>Anahtar Kelimeler</td>
+            <td>
+                <ul>
+                    {% for kelime in makale_data.get('extractive_phrases', []) %}
+                    <span>{{ kelime }},</span>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        
+    </table>
+</body>
+</html>
